@@ -1,5 +1,8 @@
-# niece-python-lessons
-This repo contains a bunch of lesson to help my nieces learn Python
+# Programming Church
+This repo contains a bunch of lesson for a little band of *'engineers from other disciplines'* (including my nieces) to learn software development and hardware device control using Python and Raspberry Pi
+
+![Programming Church](https://github.com/JohnFunkCode/niece-python-lessons/blob/master/ProgrammingChurch.jpeg "Shane, Megan, Katie, David")
+
 
 ## Tools used:
 For these lessons we will rely on core material from the following online material:
@@ -117,7 +120,8 @@ is in src/gpiozero-pwmLED.py
 
 #### Excercise 4
 Add some buttons to your LED circuit and write some code to do things with them.   I suggest first just making sure your buttons
-work, then make them start your string of LEDs racing.   Example code for this is in src/gpizero-buttons.py
+work, then make them start your string of LEDs racing.   Example code for this is in **src/gpizero-buttons.py**
+(hint - use the GPIOZero button.whenpressed() method.  There is a great example in the [GPIOZero Recipies](http://gpiozero.readthedocs.io/en/stable/recipes.html)
 
 ***
 ## February 17th Session - Creating Web UI with Flask - Part 1
@@ -130,6 +134,147 @@ We are also going to step up our game and start working with Pycharm which is a 
 
 Another handy reference you'll need is the [W3Schools](https://www.w3schools.com/) HTML web development site.
 
+#### Solutions
+My solutions for these exercises are in my [flask-textanalytics repo](https://github.com/JohnFunkCode/flask-textanalytics)
+
 #### Exercise 1 - building your first flask application
 Using Pycharm we're going to create a new project and build a very simple flask app.  I like the folder structure Santiago uses to organize his work in the Udemy [Flask Tutorial Step by Step](https://www.udemy.com/python-flask-tutorial-step-by-step/learn/v4/content), so we'll mimic it.
-* First create a new project in Pycharm - put in in your code directory in a directory called **flask-textanalytics**
+* First create a new repo named **flask-textanalytics** in github.  Make sure to select everything at the bottom to create python get ignor, and an MIT licences, and generate a README.md file.  Clone this project into your code directory on your computer.
+* Next create a new project in Pycharm - put in in your code directory in a directory called **flask-textanalytics**
+* Create a Python file for the main driver of your flask applicaton in the root of the project following the pattern of [Flask Tutorial Step by Step - Section 3](https://github.com/rmotr/flask-introduction/blob/master/flask_introduction/run_app.py)
+* Create a libraries module in your application to house the code of the application.  In the library module create a python file with a route that handles the url route "/" by simply returning a string saying "hello world"
+* once the code is working check it into Github
+
+#### Exercise 2 - rendering an html template
+In this exercise we'll extend what you've built so far to setup a simple flask template and pass it a variable to include in the information it outputs.
+* Add the a route to handle the "/test" route with a function that calls render_template to render a file called index.html
+* create a file called index.html in the templates directory
+* pass a variable with a string containing your name in it to the template and have it include your name someone in the body of the data returned.
+* once the code is working check it into Github
+
+#### Exercise 3 - Rendering a form and displaying the user's input
+In this exercise we'll extend what you've built so far to render an html form to gather two strings from the user.   When the user posts that data, we'll render another template to display the two string.
+* Add a route to handle the "/textanalytics" route with a function that renders either a form, or an html document with results depending on if it gets a GET or a POST method.
+* Add two html documents to your templates directory one called "textanalytics_form.html" with an input form in it, and one called "textanalytics_form_results.html" to display the two strings gathered by the form.
+* once the code is working check it into Github
+
+#### Exercise 4 - Hook up your text analytics funcitons from a few weeks ago
+In this exercise we'll use the text anlytics module you wrote a few weeks ago to calculate the words in common between the two strings the user inputs into the web forms from the previous exercise.
+* Copy your text analytics code into a directory called model in your library directory
+* Call you text analytics union method from the "POST" method of your function that handle the "/textanalytics" route and pass the results to the render template code that displays your textanalytics_form_results template.
+* Add code into your template to display the dictionary returned by your textanalytics.union() function.
+* once the code is working check it into Github
+
+***
+## February 25th Session - Playing with WebUI's
+Ok, you're on your own this week.  It's your chance to get creative playing with building simple web UI's.  Spend some time before class this week to explore some of my suggestions below to see what you want to try to build this week.
+Here are some of my suggestions:
+* Build variations on your text analytics code.   We've surfaced the Union function, but how about the other funcitons?
+* Dress your templates up a bit with fancier HTML. Megan knows HTML pretty well, and there is a great HTML Tutorial at [w3schools.com](https://www.w3schools.com/html/).  See if you can make one of your templates look presentable.
+* Build a UI for your racing lights on your rasberry pi.  There is endless combinations you can build:
+    - Make the lights race up, or down 
+    - Show the user a bunch of radio buttons and let them choose what LED to light up, or even use a pulldown menu to let them choose to make it light solid, blink, or even make it glow using the [Pulse Width Modulation PMWLED methods](http://gpiozero.readthedocs.io/en/stable/recipes.html#led-with-variable-brightness)
+
+Home Work:
+* Listen to [Cornilia Davis's talk about Women and Technology](https://www.youtube.com/watch?v=2lFv3qknbqQ)
+* Write code!!!!
+
+***
+## March 3rd Session - Objects and More Web UI (We probably won't get through this section in 1 week)
+Today we'll start with more pure Python code.  It's time you learn the next step in oranizing your code by working with classes.  Classes are the basis for Object Oriented programming which is a very important topic to master because it helps decompoze complex ideas into simpler more usable code.  After that we'll go back to working with a more sophisticated flask web app to control your raspberry Pi. 
+
+##### Homework Assignment:
+* Listen to the recording on Classes in Python that I provided.
+* Learn about Github tagging and releases.  I abuse the tagging mechanism to show the stages of development in these lessons.  Here are a few resources to help you learn about tagging:
+  * https://git-scm.com/book/en/v2/Git-Basics-Tagging
+  * https://www.youtube.com/watch?v=90ynNkDzaNY
+
+#### Exercise 1
+Write a class to encapsuate the functionality of your Raspberry Pi LED contraption.  It should do the following:
+* Initialize itself by setting up all the LEDs we need to control.
+* Provide a led_on() method to turn on individual LEDs
+* Provide a led_off() method to turn off individual LEDs
+* Provide a race_up() method to make the leds race up
+* Provide a race_down() method to make the leds race down
+* Provide a dance_randomly() method to make the leds dance on and off randomly
+* Your class should also include tests when the file is run by itself using the **if __name__ == "__main__"** trick you've learned.
+##### Solution
+My solution can be found at in my [flask-pi-led-control](https://github.com/JohnFunkCode/flask-pi-led-control/blob/WithPi/library/raspi/pi_led_contraption.py) repo with the *WithPI* tag in the library/raspi directory.
+
+#### Exercise 2
+Create a static html site with the following pages:
+* index.html - acts as the home page and has a menu to get to all the other pages
+* individual.html - has a menu to get to the other pages and a text box with on/off radio buttons to allow the user to control individual LEDs.
+* group.html - has the menu, and a bunch of radio buttons to allow a user to turn on or off any of the LEDs at once.
+* patterns.html - had the menu, and buttons to allow the user to make the LEDs race up, race down, or dance randomly.
+##### Solution
+My solution can be found at in my [flask-pi-led-control](https://github.com/JohnFunkCode/flask-pi-led-control/tree/static-html) repo with the *static-html* tag.
+
+#### Exercise 3
+Turn your static html site into a flask application.  You'll need to do the following:
+- Setup a base flask app by copying the structure of our previous flask examples
+    - Setup a libraries directory for our code and templates
+    - create a driver app called run_app.py in the root of the project
+    - added requirements.txt to make sure the environment include Flask
+- Moved the static html into the templates directory
+- Create a file called flask_pi_led_controll_app.py with all the routes for the app.
+- Moved the stylesheet into /library/static/styles and changed all the html files to refer to it.
+##### Solution
+My solution can be found at in my [flask-pi-led-control](https://github.com/JohnFunkCode/flask-pi-led-control/tree/FlaskFromStaticHTML) repo with the *FlaskFromStaticHTML* tag.
+
+#### Exercise 4
+Wire in your class that encapsulates the functionality of your Raspberry Pi LED contraption into your flask application. A few tips for doing this include:
+- Set defaults for all your radio buttons in the HTML files, to make processing the forms easier.
+- Create a mock-up of your rasberry pi contraption class with all the GPIO handling stripped out.  This will make it easier to test on your PC before you move things to your raspbery pi.  I did this by simply making a copy of my class file and stripped out anything GPIO related to create a mock object that implements all right methods.
+##### Solution
+My solution can be found at in my [flask-pi-led-control](https://github.com/JohnFunkCode/flask-pi-led-control/tree/WithPi) repo with the *WithPi* tag.
+
+
+***
+## April 15h Session - Wrap up Flask Pi LED Contraption & Start our first IoT Project
+We've spent several weeks getting our Flask based Pi Contraption that flashes LEDs by using a clean object design and an HTML interface.  That's actually quite an accomplishment.  It's non-trivial and it has many apects of a real-world project built into it!!!!  Great Job!
+
+#### Exercise - Mobile responsive CSS
+Before moving on we'll talk a little bit more about CSS styling for mobile devices.   I've pulled all the HTML and CSS out of my Pi LED Contraption project and put it on my website at: http://www.johnfunk.com/responsive/
+- look it it with Chrome's developer tools
+- Dig into the CSS a bit deeper and notice the I have a wrapper class that I apply to the Body.  Also notice that I also use a variable font to help change the font size on various devices.   This is a very simple setup that scales the font size to make things work better across many different devices.
+
+Look at the following articles to learn more about how to make things look better on mobile:
+- https://css-tricks.com/fun-viewport-units/
+- https://www.smashingmagazine.com/2016/05/fluid-typography/
+- https://css-tricks.com/viewport-sized-typography/
+
+### Begining Our first IoT project
+Today we'll wrap that up and move on to an even more intersting and more realworld project.   We're going to working on our first IoT project using techniques that IoT startup companies in their projects.  Our little project will use an Ada Fruit ADXL1345 Accelarometer to detect motion and report that back to a cloud based collection center where we can analyze the data collected from all the devices in our little internet of things world.
+
+####  Exercise 1 - Get started with the ADXL345 Accelerometer
+First read the instructions about using the ADXL345 accelarometer in the manual of your Sunfounder kit.  In my version of the kit it's exercise 14.  Your version might be a bit different.
+
+- Wire up the Accelrometer circut according ot the manual in your sunfounder kit.  I recommend putting this on a different breakout board.  But you might put in on the same board as your LEDs if you want to show them all off together and don't mind a more complicated circuit.
+
+- Get the sample code working
+ - The core example on the Sunfounder site doesn't work: https://www.sunfounder.com/learn/Super_Kit_V2_for_RaspberryPi/lesson-14-adxl345-super-kit-for-raspberrypi.html
+
+ - I found it's better to go direct to Adafurit’s github at: https://github.com/adafruit/Adafruit_Python_ADXL345
+
+ - However, it doesn’t clearly explain all the pre-requisits.  Read the following article on stack exchange (and pay attention to the last line) https://raspberrypi.stackexchange.com/questions/14153/adafruit-i2c-library-problem?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+ - Here are the steps I followed to get things running:
+```
+sudo apt-get update
+sudo apt-get install python-smbus
+sudo apt-get install i2c-tools
+```
+Then you need to change your raspberry pi configuration:
+```
+sudo raspi-config
+````
+In the next screen choose, in order:
+- Interfacing Options
+- I2C - enable I2C
+
+
+
+
+
+
